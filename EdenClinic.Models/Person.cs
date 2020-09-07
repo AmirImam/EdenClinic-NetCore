@@ -55,8 +55,8 @@ namespace EdenClinic.Models
         public bool IsPatient { get; set; }
         public PatientInfo PatientInfo { get; set; }
 
-        [NotMapped]
-        public string Password { get; set; }
+        //[NotMapped]
+        public string UserPassword { get; set; }
 
         public ICollection<DoctorSetting> DoctorSetting { get; set; }
         public ICollection<Remark> Remarks { get; set; }
@@ -68,5 +68,7 @@ namespace EdenClinic.Models
         public ICollection<MedicalTest> PatientMedicalTests { get; set; }
         public ICollection<PatientMedicalHistory> PatientMedicalHistory { get; set; }
         
+
+        public string AccessToken { get; set; }
     }
 }

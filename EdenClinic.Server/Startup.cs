@@ -63,7 +63,7 @@ namespace EdenClinic.Server
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                             .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddOData();
-            //services.AddScoped<Helpers.UserAccountHelper>();
+            services.AddScoped<Helpers.UserAccountHelper>();
             //services.AddScoped<Helpers.ControllerExtensions>();
             services.AddSignalR();
             ConfigureIdentity(services);

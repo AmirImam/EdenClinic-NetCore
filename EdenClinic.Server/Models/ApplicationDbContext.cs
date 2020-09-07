@@ -18,6 +18,7 @@ namespace EdenClinic.Models
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("dbo");
+            builder.Entity<Person>().Ignore(it => it.AccessToken);
             builder.Entity<Reservation>()
                  .HasOne(it => it.Doctor)
                  .WithMany(it => it.DoctorReservations)

@@ -13,6 +13,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using EdenClinic.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using StringEncryption;
+using EdenClinic.Server.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EdenClinic.Server.Controllers
 {
@@ -20,15 +25,21 @@ namespace EdenClinic.Server.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-		public PersonController(ApplicationDbContext dbContext)
+		public PersonController(ApplicationDbContext dbContext,
+            UserManager<IdentityUser> userManager,
+            UserAccountHelper userAccountHelper)
         {
             this.context = dbContext;
+            this.userManager = userManager;
+            this.userAccountHelper = userAccountHelper;
         }
         private ApplicationDbContext context;
-        
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserAccountHelper userAccountHelper;
+
         #region Basic Functions
         // GET: Person
-		[HttpGet]
+        [HttpGet]
 		[EnableQuery]
         public IQueryable<Person> Get()
         {
@@ -47,17 +58,33 @@ namespace EdenClinic.Server.Controllers
 
 		// POST: Person/
         [HttpPost]
-		public IActionResult Post(Person person)
+		public async Task<IActionResult> Post(Person person)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-			
+            IdentityUser user = new IdentityUser()
+            {
+                PhoneNumber = person.PhoneNumber,
+                Email = person.Email,
+                UserName = person.Email
+            };
+            if (String.IsNullOrEmpty(person.UserPassword))
+            {
+                person.UserPassword = "123456";
+            }
+            var identityResult = await userManager.CreateAsync(user, person.UserPassword);
+            if(identityResult.Succeeded == false)
+            {
+                return BadRequest(identityResult.Errors);
+            }
 			using (var trans = context.Database.BeginTransaction())
             {
                 try
                 {
+                    person.UserPassword = person.UserPassword.Encrypt(user.Id);
+                    person.ApplicationUserID = user.Id;
                     context.Persons.Add(person);
                     context.SaveChanges();
                     trans.Commit();
@@ -220,6 +247,36 @@ namespace EdenClinic.Server.Controllers
             var result = table.Rows[0]["Value"];
             return new List<GenericModel>() { new GenericModel() { Value = result.ToString() } };
         }
-		#endregion
+        #endregion
+
+
+        [HttpPost]
+        [Route("/api/Person/Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] UserLoginModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Login Failed");
+                }
+
+                var client = (await userAccountHelper.Login(model)).User;
+                if (client != null)
+                {
+                    return Ok(client);
+                }
+                else
+                {
+                    return BadRequest("Login Failed !");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
 }

@@ -32,5 +32,10 @@
 <ItemGroup>
   <Folder Include="Controllers\" />
 </ItemGroup>
+<ItemGroup>
+  <Reference Include="StringEncryption">
+    <HintPath>..\..\MarketTree\MarketTree.AdminPanel\bin\Debug\netcoreapp3.1\StringEncryption.dll</HintPath>
+  </Reference>
+</ItemGroup>
 
 </Project>
