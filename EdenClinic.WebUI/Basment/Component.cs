@@ -32,5 +32,7 @@ namespace EdenClinic.WebUI.Basment
             Session.IsBusy = state;
             Session.UpdateMainLayout();
         }
+
+       
     }
 }

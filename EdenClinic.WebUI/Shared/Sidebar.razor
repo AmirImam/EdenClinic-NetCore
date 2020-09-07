@@ -1,4 +1,5 @@
-﻿<style>
+﻿@inherits Component
+<style>
     .mdc-nav-item{
         color:black !important;
     }
@@ -6,12 +7,15 @@
 <MatNavMenu Style="background-color: white;height:100%;">
     <MatNavItem OnClick="ClickMe" Style="margin-top:0px;" Title="Item 1">Item 1 - OnClick</MatNavItem>
     <MatNavItem Disabled="true" Title="Item 2">Item 2</MatNavItem>
+    @if (Session.Me.Role.IsSystemAdmin == true)
+    {
+        <SubNavMenu Title="Administration" Icon="account_box">
+            <MatNavItem Href="/centers"><MatIcon Icon="backup"></MatIcon>&nbsp; Centers </MatNavItem>
+            <MatNavItem><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A</MatNavItem>
+            <MatNavItem><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A</MatNavItem>
+        </SubNavMenu>
+    }
 
-    <SubNavMenu Title="Initial Data" Icon="account_box">
-        <MatNavItem Href="#"><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A </MatNavItem>
-        <MatNavItem><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A</MatNavItem>
-        <MatNavItem><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A</MatNavItem>
-    </SubNavMenu>
 </MatNavMenu>
 
 

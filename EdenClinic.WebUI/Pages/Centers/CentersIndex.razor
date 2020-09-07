@@ -1,0 +1,31 @@
+﻿@page "/centers"
+@inherits Component
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <MatFAB Icon="@MatIconNames.Add" Label="Create New" @onclick="@(()=> { UriHelper.NavigateTo("/centers/create"); })"></MatFAB>
+            </div>
+            <div class="col-9"></div>
+            <div class="col-12">
+                <MatTable Items="DataList" Class="table table-hover">
+                    <MatTableHeader>
+                        <th>Center Name</th>
+                        <th></th>
+                    </MatTableHeader>
+
+                    <MatTableRow>
+                        <td>@context.CenterName</td>
+                        <td>
+                            @if (context.CenterID != Session.Me.CenterID)
+                            {
+                                <NavLink href="@($"/centers/details/{context.CenterID}")">
+                                    <MatIcon Icon="@MatIconNames.Create" Class="text-primary" />
+                                </NavLink>
+                            }
+
+                        </td>
+                    </MatTableRow>
+                </MatTable>
+            </div>
+        </div>
+    </div>
