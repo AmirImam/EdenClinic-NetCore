@@ -1,0 +1,30 @@
+﻿/*
+*
+* Generated At ##GetDate##
+*
+*/
+using Microsoft.AspNetCore.Builder;
+using Microsoft.OData.Edm;
+using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNetCore.Routing;
+using ##ModelsNamespace##;
+namespace ##Namespace##
+{
+    public class ODataServerConfiguration
+    {
+         //You must call this method at Startup.cs -> app.UseMvc
+
+        public static void Config(IRouteBuilder builder)
+        {
+            builder.Select().Filter().Expand().Count().OrderBy().MaxTop(null);
+            builder.MapODataServiceRoute("api", "api", GetOdataModel());
+        }
+        private static IEdmModel GetOdataModel()
+        {
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            //##EntitiesSets##
+            return builder.GetEdmModel();
+        }
+    }
+}

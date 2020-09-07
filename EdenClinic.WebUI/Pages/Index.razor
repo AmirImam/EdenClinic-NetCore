@@ -1,0 +1,100 @@
+﻿@page "/"
+@inject ServiceContext ClientService; 
+<div class="row">
+    <div class="col-12">
+        <EditForm Model="model" OnValidSubmit="Submit">
+            <input @bind="model.CenterName" class="form-control" placeholder="Name" />
+            <input @bind="model.CenterAddress" class="form-control" placeholder="Name" />
+            <input @bind="model.CenterPhone" class="form-control" placeholder="Name" />
+            <button>Save</button>
+        </EditForm>
+    </div>
+    <div class="col-12">
+        <table class="table table-hover">
+            <tbody>
+                @foreach (Center center in data)
+                {
+                    <tr>
+                        <td>@center.CenterName</td>
+                        <td>@center.CenterAddress</td>
+                        <td>@center.CenterPhone</td>
+                        <td>
+                            <button @onclick="@(()=>
+                                                {
+                                                    model = new Center()
+                                                    {
+                                                        CenterAddress = center.CenterAddress,
+                                                        CenterID= center.CenterID,
+                                                        CenterName = center.CenterName,
+                                                        CenterPhone= center.CenterPhone
+                                                    };
+                                                    StateHasChanged();
+
+                                                })">Edit</button>
+                        </td>
+
+                        <td>
+                            <button @onclick="@(async ()=>
+                                                {
+                                                    List<Center> list = new List<Center>()
+                                                    {
+                                                        new Center()
+                                                    {
+                                                        CenterAddress = center.CenterAddress,
+                                                        CenterID= center.CenterID,
+                                                        CenterName = center.CenterName,
+                                                        CenterPhone= center.CenterPhone
+                                                    }
+                                                    };
+                                                    await ClientService
+                                                     .Centers
+                                                     .DeleteRangeAsync(list);
+                                                    data = (await ClientService.Centers.ResultAsync()).ToList();
+                                                    StateHasChanged();
+
+                                                })">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+           
+        </table>
+    </div>
+</div>
+
+@code{
+    Center model = new Center();
+    List<Center> data = new List<Center>();
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if(firstRender == true)
+        {
+            try
+            {
+               
+                data = (await ClientService.Centers.ResultAsync()).ToList();
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine(ex);
+            }
+        }
+    }
+    private async void Submit()
+    {
+        if(model.CenterID == Guid.Empty)
+        {
+            await ClientService.Centers.InsertEntityAsync(model);
+        }
+        else
+        {
+            await ClientService.Centers.UpdateEntityAsync(model.CenterID, model);
+        }
+
+        data = (await ClientService.Centers.ResultAsync()).ToList();
+        StateHasChanged();
+    }
+}

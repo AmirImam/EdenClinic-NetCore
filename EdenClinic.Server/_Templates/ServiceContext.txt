@@ -1,0 +1,51 @@
+﻿
+using ##ModelsNamespace##;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ##Namespace##
+{
+    public class ServiceContext
+    {
+
+        private ODataSet<T> GetInistance<T>(ODataSet<T> obj) where T : class
+        {
+            if (obj == null)
+            {
+                obj = new ODataSet<T>(Configuration);
+            }
+            return obj;
+        }
+       
+        public ServiceContext()
+        {
+            _configuration = new ODataConfiguration();
+        }
+
+        public ServiceContext(string token)
+        {
+            _configuration = new ODataConfiguration();
+            _configuration.AccessToken = token;
+        }
+
+        
+
+        private ODataConfiguration _configuration;
+        public ODataConfiguration Configuration
+        {
+            get
+            {
+                return _configuration;
+            }
+        }
+       
+        //##Sets##
+        
+    }
+
+
+
+}
