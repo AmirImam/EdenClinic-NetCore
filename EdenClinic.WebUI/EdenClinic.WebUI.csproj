@@ -21,9 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="StringEncryption">
-      <HintPath>..\..\MarketTree\MarketTree.AdminPanel\bin\Debug\netcoreapp3.1\StringEncryption.dll</HintPath>
+    <Reference Include="StringEncryption.NetStandard">
+      <HintPath>..\..\StringEncryption\StringEncryption.NetStandard\bin\Debug\netstandard2.0\StringEncryption.NetStandard.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
 </Project>

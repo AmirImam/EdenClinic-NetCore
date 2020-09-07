@@ -34,7 +34,7 @@ namespace EdenClinic.WebUI.Helpers
         public NavigationManager UriHelper { get; }
         public SessionManager Session { get; }
 
-        public async Task OnLogged(Person person)
+        public async Task OnLogged(Person person,bool rememberMe)
         {
             switch (person.PersonState)
             {
@@ -50,8 +50,11 @@ namespace EdenClinic.WebUI.Helpers
 
             Session.Me = person;
             var json = person.ToJsonString().Encrypt(StorageEncryptionKey);
-            await LocalStorage.SetItemAsync("locref", json);
             await SessionStorage.SetItemAsync("sesref", json);
+            if (rememberMe == true)
+            {
+                await LocalStorage.SetItemAsync("locref", json);
+            }
             Session.UpdateMainLayout();
         }
     }

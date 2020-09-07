@@ -1,0 +1,22 @@
+﻿<img style="@Style" @onerror="OnError" src="@src"/>
+
+@code {
+    string src = "../assets/Avatar.png";
+    [Parameter]public Guid PersonID { get; set; }
+    [Parameter]public string Style { get; set; }
+    //protected StyleMapper styleMapper;
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if(firstRender == true)
+        {
+            src = $"{ODataConfiguration.UploadsBaseUrl}Persons/{PersonID}/profile.png";
+            StateHasChanged();
+        }
+    }
+
+    void OnError()
+    {
+        src = "../assets/Avatar.png";
+        StateHasChanged();
+    }
+}

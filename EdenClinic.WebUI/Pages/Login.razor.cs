@@ -1,5 +1,8 @@
-﻿using EdenClinic.Models;
+﻿using EdenClinic.Extensions;
+using EdenClinic.Models;
 using EdenClinic.Service;
+using EdenClinic.WebUI.Helpers;
+using StringEncryption;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,8 @@ namespace EdenClinic.WebUI.Pages
 {
     public partial class Login
     {
+        UserLoginModel model = new UserLoginModel();
+        bool rememberMe = false;
         protected override async void OnInitialized()
         {
             Busy(true);
@@ -16,13 +21,23 @@ namespace EdenClinic.WebUI.Pages
             if (result.Success == true)
             {
                 model.Email = result.Model.Email;
-                model.Password = result.Model.UserPassword;
+                model.Password = result.Model.UserPassword.Decrypt(result.Model.ApplicationUserID);
+                StateHasChanged();
+            }
+
+            var locData = await LocalStorage.GetItemAsync<string>("locref");
+            if (locData != null)
+            {
+                string json = locData.Decrypt(SharedTools.StorageEncryptionKey);
+                Person person = json.ToJsonObject<Person>();
+                model.Email = person.Email;
+                model.Password = person.UserPassword.Decrypt(person.ApplicationUserID);
                 StateHasChanged();
             }
             Busy(false);
         }
 
-        UserLoginModel model = new UserLoginModel();
+        
         private async void LoginSubmit()
         {
             Busy(true);
@@ -35,7 +50,7 @@ namespace EdenClinic.WebUI.Pages
             }
             else
             {
-                await Tools.OnLogged(result.Model);
+                await Tools.OnLogged(result.Model,rememberMe);
             }
         }
     }

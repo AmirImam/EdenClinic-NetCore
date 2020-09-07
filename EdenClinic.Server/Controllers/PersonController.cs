@@ -302,7 +302,7 @@ namespace EdenClinic.Server.Controllers
                 BirthDate = DateTime.Parse("1/5/1983"),
                 Email = "admin@eden.com",
                 PersonAddress = "Eden Address",
-                UserPassword = "123456",
+                UserPassword = "123456".Encrypt(user.Id),
                 PersonName="Eden Admin",
                 PhoneNumber="000",
                 Gander = Ganders.Male,

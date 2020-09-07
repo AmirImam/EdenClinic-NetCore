@@ -1,70 +1,69 @@
 ﻿@inherits LayoutComponentBase
 @inject SessionManager Session;
-@inject SharedTools Tools; 
-@if (Session.Me == null)
+@inject SharedTools Tools;
+@if (rendered == false)
 {
-    <Login />
+
+    <img src="https://nextupspeakers.com/wp-content/uploads/sites/7244/2018/06/Medical-Technology.gif"
+         style="width:100%;height:100%;position:fixed;top:0px;left:0px" />
 }
 else
 {
-    <MatDrawerContainer Style="width: 100vw; height: 100vh;">
-        <MatDrawer @bind-Opened="@Opened">
-            <MatCard class="demo-mat-card">
-                <MatCardContent>
-                    <MatCardMedia Wide="true" ImageUrl="https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg">
-                        <div class="demo-mat-card-content" style="color: white;">
-                            <MatHeadline6 class="demo-mat-card-clean-margin">
-                                Our Changing Planet
-                            </MatHeadline6>
-                            <MatSubtitle2 class="demo-mat-card-clean-margin">
-                                by Kurt Wagner
-                            </MatSubtitle2>
+    if (Session.Me == null)
+    {
+        <Login />
+    }
+    else
+    {
+
+        <MatAppBarContainer>
+            <MatAppBar Fixed="false">
+                <MatAppBarRow>
+                    <MatAppBarSection>
+                        <MatIconButton Icon="menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
+                        <MatAppBarTitle>Eden Clinic System</MatAppBarTitle>
+                    </MatAppBarSection>
+                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                        <MatButton Label="Menu" OnClick="@(()=> this.Menu2.OpenAsync(Button2.Ref))" @ref="Button2"></MatButton>
+                        <MatMenu @ref="Menu2">
+                            <MatList>
+                                <MatListItem>Item 1</MatListItem>
+                                <MatListItem>Item 2</MatListItem>
+                                <MatListItem>Item 3</MatListItem>
+                                <MatListItem>Item 4</MatListItem>
+                                <MatListItem>Item 5</MatListItem>
+                            </MatList>
+                        </MatMenu>
+                    </MatAppBarSection>
+                </MatAppBarRow>
+            </MatAppBar>
+
+            <MatAppBarContent>
+                <MatDrawerContainer Style="width: 100vw; height: 100vh;">
+                    <MatDrawer @bind-Opened="@Opened">
+                        <div class="user-profile" style=" padding-left: 15px; padding-top: 15px;height: 160px; background: url(https://wrappixel.com/demos/angular-admin-templates/material-angular-lite/angular/assets/images/background/user-info.jpg) no-repeat;">
+                            <div class="profile-img">
+                                <PersonImage Style="width:80px;" PersonID="Session.Me.PersonID" />
+                            </div>
+                            <div class="profile-text"><a aria-haspopup="true" class="mat-menu-trigger" style="font-weight:bolder;"> @Session.Me.PersonName <i class="ti-angle-down font-12 m-l-5"></i></a><!----></div>
                         </div>
-                    </MatCardMedia>
-                    <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
-                        Visit ten places on our planet that are undergoing the biggest changes today.
-                    </MatBody2>
-                </MatCardContent>
-                <MatCardActions>
-                    <MatCardActionButtons>
-                        <MatButton>Read</MatButton>
-                        <MatButton>Bookmark</MatButton>
-                    </MatCardActionButtons>
+                        <Sidebar />
 
-                    <MatCardActionIcons>
-                        <MatIconButton Icon="@MatIconNames.Favorite"></MatIconButton>
-                        <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
-                    </MatCardActionIcons>
-                </MatCardActions>
-            </MatCard>
-            <Sidebar />
+                    </MatDrawer>
+                    <MatDrawerContent>
+                        <div class="demo-mat-elevation-container" style="background-color:#fafafa;height:100%;padding:5px;">
+                            <div class="mat-elevation-z9" style="padding: 20px;height:100%;">
+                                @Body
+                            </div>
+                        </div>
+                    </MatDrawerContent>
+                </MatDrawerContainer>
+            </MatAppBarContent>
+        </MatAppBarContainer>
 
-        </MatDrawer>
-        <MatDrawerContent>
-            <div>
-                <MatAppBarContainer>
-                    <MatAppBar Fixed="true">
-                        <MatAppBarRow>
-                            <MatAppBarSection>
-                                <MatIconButton Icon="menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
-                                <MatAppBarTitle>MatBlazor - Material Design components for Blazor</MatAppBarTitle>
-                            </MatAppBarSection>
-                            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                                <MatIconButton Icon="favorite"></MatIconButton>
-                            </MatAppBarSection>
-                        </MatAppBarRow>
-                    </MatAppBar>
 
-                    <MatAppBarContent>
-                        Content
-                    </MatAppBarContent>
-                </MatAppBarContainer>
-            </div>
-            @Body
-        </MatDrawerContent>
-    </MatDrawerContainer>
+    }
 }
-
 @if (Session.IsBusy == true)
 {
     <div style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:9999;background-color:transparent;">
@@ -77,14 +76,16 @@ else
 @code
 {
     bool Opened = true;
-
+    BaseMatButton Button2;
+    BaseMatMenu Menu2;
+    bool rendered = false;
     protected override void OnInitialized()
     {
         Session.UpdateMainLayout = StateHasChanged;
     }
     protected override async void OnAfterRender(bool firstRender)
     {
-        if(firstRender == true)
+        if (firstRender == true)
         {
             var sesData = await Tools.SessionStorage.GetItemAsync<string>("sesref");
             if (sesData != null)
@@ -92,8 +93,10 @@ else
                 string json = sesData.Decrypt(SharedTools.StorageEncryptionKey);
                 Person person = json.ToJsonObject<Person>();
                 Session.Me = person;
-                StateHasChanged();
+
             }
+            rendered = true;
+            StateHasChanged();
         }
     }
     void ButtonClicked()
