@@ -1,15 +1,104 @@
 ﻿@inherits LayoutComponentBase
+@inject SessionManager Session;
+@inject SharedTools Tools; 
+@if (Session.Me == null)
+{
+    <Login />
+}
+else
+{
+    <MatDrawerContainer Style="width: 100vw; height: 100vh;">
+        <MatDrawer @bind-Opened="@Opened">
+            <MatCard class="demo-mat-card">
+                <MatCardContent>
+                    <MatCardMedia Wide="true" ImageUrl="https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg">
+                        <div class="demo-mat-card-content" style="color: white;">
+                            <MatHeadline6 class="demo-mat-card-clean-margin">
+                                Our Changing Planet
+                            </MatHeadline6>
+                            <MatSubtitle2 class="demo-mat-card-clean-margin">
+                                by Kurt Wagner
+                            </MatSubtitle2>
+                        </div>
+                    </MatCardMedia>
+                    <MatBody2 class="demo-mat-card-content demo-mat-card-clean-margin">
+                        Visit ten places on our planet that are undergoing the biggest changes today.
+                    </MatBody2>
+                </MatCardContent>
+                <MatCardActions>
+                    <MatCardActionButtons>
+                        <MatButton>Read</MatButton>
+                        <MatButton>Bookmark</MatButton>
+                    </MatCardActionButtons>
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+                    <MatCardActionIcons>
+                        <MatIconButton Icon="@MatIconNames.Favorite"></MatIconButton>
+                        <MatIconButton Icon="@MatIconNames.Dashboard"></MatIconButton>
+                    </MatCardActionIcons>
+                </MatCardActions>
+            </MatCard>
+            <Sidebar />
 
-<div class="main">
-    <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+        </MatDrawer>
+        <MatDrawerContent>
+            <div>
+                <MatAppBarContainer>
+                    <MatAppBar Fixed="true">
+                        <MatAppBarRow>
+                            <MatAppBarSection>
+                                <MatIconButton Icon="menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
+                                <MatAppBarTitle>MatBlazor - Material Design components for Blazor</MatAppBarTitle>
+                            </MatAppBarSection>
+                            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                                <MatIconButton Icon="favorite"></MatIconButton>
+                            </MatAppBarSection>
+                        </MatAppBarRow>
+                    </MatAppBar>
+
+                    <MatAppBarContent>
+                        Content
+                    </MatAppBarContent>
+                </MatAppBarContainer>
+            </div>
+            @Body
+        </MatDrawerContent>
+    </MatDrawerContainer>
+}
+
+@if (Session.IsBusy == true)
+{
+    <div style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:9999;background-color:transparent;">
+        <MatProgressBar Indeterminate="true" />
+        <div style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 9999;opacity:0.3;background-color:#8c1cef"></div>
     </div>
+}
+<MatToastContainer />
 
-    <div class="content px-4">
-        @Body
-    </div>
-</div>
+@code
+{
+    bool Opened = true;
+
+    protected override void OnInitialized()
+    {
+        Session.UpdateMainLayout = StateHasChanged;
+    }
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if(firstRender == true)
+        {
+            var sesData = await Tools.SessionStorage.GetItemAsync<string>("sesref");
+            if (sesData != null)
+            {
+                string json = sesData.Decrypt(SharedTools.StorageEncryptionKey);
+                Person person = json.ToJsonObject<Person>();
+                Session.Me = person;
+                StateHasChanged();
+            }
+        }
+    }
+    void ButtonClicked()
+    {
+        Opened = !Opened;
+    }
+
+}

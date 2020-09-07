@@ -278,5 +278,53 @@ namespace EdenClinic.Server.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [HttpPost]
+        [Route("/api/Person/CreateFirstAdmin")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateFirstAdmin()
+        {
+            var usersCount = context.Persons.Count();
+            if(usersCount > 0)
+            {
+                return Ok();
+            }
+            IdentityUser user = new IdentityUser()
+            {
+                PhoneNumber = "000",
+                Email = "admin@eden.com",
+                UserName = "admin@eden.com"
+            };
+            var identityResult = await userManager.CreateAsync(user, "123456");
+            Person person = new Person()
+            {
+                ApplicationUserID=user.Id,
+                BirthDate = DateTime.Parse("1/5/1983"),
+                Email = "admin@eden.com",
+                PersonAddress = "Eden Address",
+                UserPassword = "123456",
+                PersonName="Eden Admin",
+                PhoneNumber="000",
+                Gander = Ganders.Male,
+                PersonState= UserStates.Active,
+                Center = new Center()
+                {
+                    CenterName = "Eden",
+                    CenterAddress = "Eden Address",
+                    CenterPhone = "000"
+                },
+               
+                Role = new SystemRole()
+                {
+                    RoleName="System Admin",
+                    IsSystemAdmin = true,
+                    IsAdmin = false
+                }
+            };
+
+            context.Persons.Add(person);
+            context.SaveChanges();
+            return Ok(person);
+        }
     }
 }

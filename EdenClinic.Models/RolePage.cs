@@ -16,7 +16,7 @@ namespace EdenClinic.Models
 
         public string PageName { get; set; }
         public Guid? RoleID { get; set; }
-        public Role Role { get; set; }
+        public SystemRole Role { get; set; }
 
         public bool CanAccess { get; set; }
         public bool CanCreate { get; set; }

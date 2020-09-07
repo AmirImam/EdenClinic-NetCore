@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EdenClinic.Extensions\EdenClinic.Extensions.csproj" />
     <ProjectReference Include="..\EdenClinic.Models\EdenClinic.Models.csproj" />
   </ItemGroup>
 

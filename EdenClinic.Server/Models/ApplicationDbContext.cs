@@ -57,10 +57,10 @@ namespace EdenClinic.Models
         //public DbSet<TagObject> TagObjects { get; set; }
         //public DbSet<ToothInfo> ToothInfos { get; set; }
 
-
+        public DbSet<SystemRole> SystemRoles { get; set; }
         public DbSet<PatientInfo> PatientInfoes { get; set; }
      
-        public DbSet<Role> DbRoles { get; set; }
+        public DbSet<SystemRole> DbRoles { get; set; }
         public DbSet<RolePage> RolePages { get; set; }
 
       public DbSet<WorkingSheet> WorkingSheets { get; set; }

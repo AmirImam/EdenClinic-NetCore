@@ -12,6 +12,6 @@ namespace EdenClinic.Models
         bool IsActive { get; set; }
 
         Guid? RoleID { get; set; }
-        Role Role { get; set; }
+        SystemRole Role { get; set; }
     }
 }

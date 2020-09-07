@@ -57,12 +57,12 @@ public ODataSet<MedicalTest> MedicalTests => new ODataSet<MedicalTest>(Configura
 public ODataSet<MedicalTestsDetail> MedicalTestsDetails => new ODataSet<MedicalTestsDetail>(Configuration);
 public ODataSet<PatientInfo> PatientInfoes => new ODataSet<PatientInfo>(Configuration);
 public ODataSet<PatientMedicalHistory> PatientMedicalHistories => new ODataSet<PatientMedicalHistory>(Configuration);
-public ODataSet<Person> People => new ODataSet<Person>(Configuration);
+public ODataSet<Person> Persons => new ODataSet<Person>(Configuration);
 public ODataSet<Prescription> Prescriptions => new ODataSet<Prescription>(Configuration);
 public ODataSet<PrescriptionDetail> PrescriptionDetails => new ODataSet<PrescriptionDetail>(Configuration);
 public ODataSet<Remark> Remarks => new ODataSet<Remark>(Configuration);
 public ODataSet<Reservation> Reservations => new ODataSet<Reservation>(Configuration);
-public ODataSet<Role> Roles => new ODataSet<Role>(Configuration);
+public ODataSet<SystemRole> Roles => new ODataSet<SystemRole>(Configuration);
 public ODataSet<RolePage> RolePages => new ODataSet<RolePage>(Configuration);
 public ODataSet<Specialist> Specialists => new ODataSet<Specialist>(Configuration);
 public ODataSet<SystemAction> SystemActions => new ODataSet<SystemAction>(Configuration);
@@ -72,7 +72,9 @@ public ODataSet<Treasury> Treasuries => new ODataSet<Treasury>(Configuration);
 public ODataSet<Treatment> Treatments => new ODataSet<Treatment>(Configuration);
 public ODataSet<TreatmentCategory> TreatmentCategories => new ODataSet<TreatmentCategory>(Configuration);
 public ODataSet<WorkingSheet> WorkingSheets => new ODataSet<WorkingSheet>(Configuration);
+public ODataSet<SystemRole> SystemRoles => new ODataSet<SystemRole>(Configuration);
 //##Sets##
+
 
 
 

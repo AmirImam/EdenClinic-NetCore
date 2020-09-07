@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace EdenClinic.Models
 {
-    [Table(nameof(Role))]
-    public class Role
+    [Table(nameof(SystemRole))]
+    public class SystemRole
     {
         [Key,DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid RoleID { get; set; }
         public string RoleName { get; set; }
         public bool IsAdmin { get; set; }
-
+        public bool IsSystemAdmin { get; set; }
         public ICollection<RolePage> RolePages { get; set; }
         public ICollection<Person> Persons { get; set; }
     }

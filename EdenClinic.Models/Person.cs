@@ -33,7 +33,7 @@ namespace EdenClinic.Models
         public string Email { get; set; }
 
         public Guid? RoleID { get; set; }
-        public Role Role { get; set; }
+        public SystemRole Role { get; set; }
 
         public DateTime BirthDate { get; set; }
         public string StrBirthdate { get; set; }

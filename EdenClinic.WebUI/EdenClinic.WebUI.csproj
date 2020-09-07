@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
+    <PackageReference Include="Blazored.SessionStorage" Version="1.0.12" />
+    <PackageReference Include="MatBlazor" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.1" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.1" PrivateAssets="all" />
@@ -15,6 +18,12 @@
   <ItemGroup>
     <ProjectReference Include="..\EdenClinic.Models\EdenClinic.Models.csproj" />
     <ProjectReference Include="..\EdenClinic.Service\EdenClinic.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="StringEncryption">
+      <HintPath>..\..\MarketTree\MarketTree.AdminPanel\bin\Debug\netcoreapp3.1\StringEncryption.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

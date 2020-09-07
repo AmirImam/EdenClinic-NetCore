@@ -43,7 +43,7 @@ builder.EntitySet<Prescription>(nameof(Prescription));
 builder.EntitySet<PrescriptionDetail>(nameof(PrescriptionDetail));
 builder.EntitySet<Remark>(nameof(Remark));
 builder.EntitySet<Reservation>(nameof(Reservation));
-builder.EntitySet<Role>(nameof(Role));
+builder.EntitySet<SystemRole>(nameof(SystemRole));
 builder.EntitySet<RolePage>(nameof(RolePage));
 builder.EntitySet<Specialist>(nameof(Specialist));
 builder.EntitySet<SystemAction>(nameof(SystemAction));
@@ -54,6 +54,7 @@ builder.EntitySet<Treatment>(nameof(Treatment));
 builder.EntitySet<TreatmentCategory>(nameof(TreatmentCategory));
 builder.EntitySet<WorkingSheet>(nameof(WorkingSheet));
 //##EntitiesSets##
+
 
 
 

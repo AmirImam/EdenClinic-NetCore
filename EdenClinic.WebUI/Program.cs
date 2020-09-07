@@ -8,6 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using EdenClinic.Service;
+using EdenClinic.WebUI.Helpers;
+using MatBlazor;
+using Blazored.SessionStorage;
+using Blazored.LocalStorage;
 
 namespace EdenClinic.WebUI
 {
@@ -22,6 +26,20 @@ namespace EdenClinic.WebUI
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             Simple.OData.Client.V4Adapter.Reference();
             builder.Services.AddScoped<ServiceContext>();
+            builder.Services.AddScoped<SessionManager>();
+            builder.Services.AddScoped<SharedTools>();
+
+            builder.Services.AddMatToaster(config =>
+            {
+                config.Position = MatToastPosition.BottomRight;
+                config.PreventDuplicates = true;
+                config.NewestOnTop = true;
+                config.ShowCloseButton = true;
+                config.MaximumOpacity = 95;
+                config.VisibleStateDuration = 3000;
+            });
+            builder.Services.AddBlazoredSessionStorage();
+            builder.Services.AddBlazoredLocalStorage();
             await builder.Build().RunAsync();
         }
     }

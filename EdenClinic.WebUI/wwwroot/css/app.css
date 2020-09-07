@@ -1,8 +1,12 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
-
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+﻿/*@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');*/
+@font-face {
+    font-family: 'Almarai-Regular';
+    src: url('../fonts/Almarai-Regular.ttf') format('truetype');
 }
+html, body,input,h1,h2,h3,h4,h5,h6,span {
+    font-family: Almarai-Regular;
+}
+/*
 
 a, .btn-link {
     color: #0366d6;
@@ -176,8 +180,8 @@ app {
         display: none;
     }
 
-    .sidebar .collapse {
+    .sidebar .collapse {*/
         /* Never collapse the sidebar for wide screens */
-        display: block;
+        /*display: block;
     }
-}
+}*/

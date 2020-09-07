@@ -31,5 +31,26 @@ namespace EdenClinic.Service
             }
             return result;
         }
+        public static async Task<ResponseResult<Person>> CreateFirstAdmin(this ODataSet<Person> context)
+        {
+            var response = await context.Configuration.Http
+                .PostAsync($"{ODataConfiguration.WebServiceUrl}Person/CreateFirstAdmin",null);
+            var content = await response.Content.ReadAsStringAsync();
+            if (String.IsNullOrEmpty(content))
+            {
+                return new ResponseResult<Person>()
+                {
+                    Success = false
+                };
+            }
+            else
+            {
+                return new ResponseResult<Person>()
+                {
+                    Success = true,
+                    Model = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(content)
+                };
+            }
+        }
     }
 }
