@@ -1,34 +1,39 @@
 ﻿@page "/centers"
 @inherits Component
-    <div class="container">
-        <div class="row">
-            <div class="col-9"></div>
-            <div class="col-3">
-                <MatFAB Icon="@MatIconNames.Add" Label="Create New" @onclick="@(()=> { UriHelper.NavigateTo("/centers/create"); })"></MatFAB>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-9"></div>
+        <div class="col-3">
+            <MatFAB Icon="@MatIconNames.Add" Label="Create New" @onclick="@(()=> { UriHelper.NavigateTo("/centers/create"); })"></MatFAB>
+        </div>
 
-            <div class="col-12">
-                <MatTable Items="DataList" Class="table table-hover">
-                    <MatTableHeader>
-                        <th style="width:200px;">Center Name</th>
-                        <th>Edit</th>
+        <div class="col-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Center center in DataList)
+                    {
+                        <tr>
+                            <td>@center.CenterName</td>
+                            <td>
+                                @if (Session.Me.CenterID != center.CenterID)
+                                {
+                                    <NavLink href="@($"/centers/details/{center.CenterID}")">
+                                        <MatIcon Icon="@MatIconNames.Create" Class="text-primary" />
+                                    </NavLink>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
 
-                    </MatTableHeader>
-
-                    <MatTableRow>
-                        <td>@context.CenterName</td>
-                        <td>
-                            @if (context.CenterID != Session.Me.CenterID)
-                            {
-                                <NavLink href="@($"/centers/details/{context.CenterID}")">
-                                    <MatIcon Icon="@MatIconNames.Create" Class="text-primary" />
-                                </NavLink>
-                            }
-
-                        </td>
-                        <td></td>
-                    </MatTableRow>
-                </MatTable>
-            </div>
+            </table>
         </div>
     </div>
+</div>
+

@@ -16,42 +16,41 @@ else
     else
     {
 
-        <MatAppBarContainer>
-            <MatAppBar Fixed="false">
-                <MatAppBarRow>
-                    <MatAppBarSection>
-                        <MatIconButton Icon="menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
-                        <MatAppBarTitle>Eden Clinic System</MatAppBarTitle>
-                    </MatAppBarSection>
-                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                        <MatButton Label="Menu" OnClick="@(()=> this.Menu2.OpenAsync(Button2.Ref))" @ref="Button2"></MatButton>
-                        <MatMenu @ref="Menu2">
-                            <MatList>
-                                <MatListItem>Item 1</MatListItem>
-                                <MatListItem>Item 2</MatListItem>
-                                <MatListItem>Item 3</MatListItem>
-                                <MatListItem>Item 4</MatListItem>
-                                <MatListItem>Item 5</MatListItem>
-                            </MatList>
-                        </MatMenu>
-                    </MatAppBarSection>
-                </MatAppBarRow>
-            </MatAppBar>
+        
+        <MatDrawerContainer Style="width: 100vw; height: 100vh;">
+            <MatDrawer @bind-Opened="@Opened">
+                <!--<div class="user-profile" style=" padding-left: 15px; padding-top: 15px;height: 160px; background: url(https://wrappixel.com/demos/angular-admin-templates/material-angular-lite/angular/assets/images/background/user-info.jpg) no-repeat;">
+                    <div class="profile-img">
+                        <PersonImage Style="width:80px;" PersonID="Session.Me.PersonID" />
+                    </div>
+                    <div class="profile-text"><a aria-haspopup="true" class="mat-menu-trigger" style="font-weight:bolder;"> @Session.Me.PersonName <i class="ti-angle-down font-12 m-l-5"></i></a>--><!----><!--</div>
+                </div>-->
+                <Sidebar />
 
-            <MatAppBarContent>
-                <MatDrawerContainer Style="width: 100vw; height: 100vh;">
-                    <MatDrawer @bind-Opened="@Opened">
-                        <div class="user-profile" style=" padding-left: 15px; padding-top: 15px;height: 160px; background: url(https://wrappixel.com/demos/angular-admin-templates/material-angular-lite/angular/assets/images/background/user-info.jpg) no-repeat;">
-                            <div class="profile-img">
-                                <PersonImage Style="width:80px;" PersonID="Session.Me.PersonID" />
-                            </div>
-                            <div class="profile-text"><a aria-haspopup="true" class="mat-menu-trigger" style="font-weight:bolder;"> @Session.Me.PersonName <i class="ti-angle-down font-12 m-l-5"></i></a><!----></div>
-                        </div>
-                        <Sidebar />
+            </MatDrawer>
+            <MatDrawerContent>
+                <MatAppBarContainer>
+                    <MatAppBar Fixed="false">
+                        <MatAppBarRow Style="color: #73879c; float: left; background-color: #EDEDED !important; border-bottom: 1px solid #D9DEE4; width: 100%; position: relative;">
+                            <MatAppBarSection Style="background-color: #EDEDED !important;">
+                                <MatIconButton Style="font-weight:bolder;" Icon="@MatIconNames.Menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
+                            </MatAppBarSection>
+                            <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
+                                <MatButton Icon="@MatIconNames.Notifications" OnClick="@(()=> this.Menu2.OpenAsync(Button2.Ref))" @ref="Button2"></MatButton>
+                                <MatMenu @ref="Menu2">
+                                    <MatList>
+                                        <MatListItem>Item 1</MatListItem>
+                                        <MatListItem>Item 2</MatListItem>
+                                        <MatListItem>Item 3</MatListItem>
+                                        <MatListItem>Item 4</MatListItem>
+                                        <MatListItem>Item 5</MatListItem>
+                                    </MatList>
+                                </MatMenu>
+                            </MatAppBarSection>
+                        </MatAppBarRow>
+                    </MatAppBar>
 
-                    </MatDrawer>
-                    <MatDrawerContent>
-                        
+                    <MatAppBarContent>
                         <div class="demo-mat-elevation-container" style="background-color:#fafafa;height:100%;padding:5px;">
                             <div class="mat-elevation-z9" style="padding: 20px;height:100%;">
                                 <div class="container">
@@ -59,11 +58,11 @@ else
                                 </div>
                             </div>
                         </div>
-                    </MatDrawerContent>
-                </MatDrawerContainer>
-            </MatAppBarContent>
-        </MatAppBarContainer>
+                    </MatAppBarContent>
+                </MatAppBarContainer>
 
+            </MatDrawerContent>
+        </MatDrawerContainer>
 
     }
 }
