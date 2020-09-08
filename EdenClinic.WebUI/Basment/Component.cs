@@ -1,7 +1,11 @@
-﻿using Blazored.LocalStorage;
+﻿using AKSoftware.Localization.MultiLanguages;
+using Blazored.LocalStorage;
+using Blazored.Modal;
+using Blazored.Modal.Services;
 using Blazored.SessionStorage;
 using EdenClinic.Service;
 using EdenClinic.WebUI.Helpers;
+using EdenClinic.WebUI.Shared;
 using MatBlazor;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -27,12 +31,35 @@ namespace EdenClinic.WebUI.Basment
         public ISessionStorageService SessionStorage { get; set; }
         [Inject]
         public NavigationManager UriHelper { get; set; }
+        [Inject]
+        public IModalService Popup { get; set; }
+        //[Inject]
+        //public ILanguageContainerService Localizer { get; set; }
         protected void Busy(bool state)
         {
             Session.IsBusy = state;
             Session.UpdateMainLayout();
         }
 
-       
+        public enum AlertButtons
+        {
+            Ok,
+            OkCancel
+        }
+        protected async Task<bool?> Alert(string title, string message, AlertButtons buttons = AlertButtons.Ok)
+        {
+            ModalParameters parameters = new ModalParameters();
+            parameters.Add("Buttons", buttons);
+            parameters.Add("Message", message);
+            var alert = Popup.Show<AlertPopup>(title, parameters);
+            var result = await alert.Result;
+            if (result.Data != null)
+            {
+                bool alertResult = (bool)result.Data;
+                return alertResult;
+            }
+            return null;
+
+        }
     }
 }

@@ -81,8 +81,8 @@
 </div>
 
 <MatNavMenu Style="background-color: #2A3F54;height:100%;">
-    <MatNavItem OnClick="ClickMe" Style="margin-top:0px;" Title="Item 1">Item 1 - OnClick</MatNavItem>
-    <MatNavItem Disabled="true" Title="Item 2">Item 2</MatNavItem>
+    <MatNavItem Href="/" Style="margin-top:0px;"><MatIcon Icon="@MatIconNames.Home"></MatIcon> <Space Count="1" /> Home</MatNavItem>
+    
     @if (Session.Me.Role.IsSystemAdmin == true)
     {
         <SubNavMenu Title="Administration" Icon="account_box">

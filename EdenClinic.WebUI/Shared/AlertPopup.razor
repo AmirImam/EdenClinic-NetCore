@@ -1,0 +1,49 @@
+﻿@inherits Component
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>@Message</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-2">
+            <button class="btn btn-success" @onclick="OkClick">
+                موافق
+            </button>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-2">
+            @if (Buttons == AlertButtons.OkCancel)
+            {
+                <button class="btn btn-danger" @onclick="CancelClick">
+                    إلغاء
+                </button>
+            }
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+
+@code {
+    [CascadingParameter] public BlazoredModalInstance Modal { get; set; }
+    [Parameter]
+    public string Message { get; set; }
+
+    [Parameter]
+    public AlertButtons Buttons { get; set; }
+
+    void OkClick()
+    {
+        AlertModalResult result = new AlertModalResult(true);
+        Modal.Close(result);
+    }
+
+    void CancelClick()
+    {
+        AlertModalResult result = new AlertModalResult(false);
+        Modal.Close(result);
+    }
+}

@@ -12,6 +12,10 @@ using EdenClinic.WebUI.Helpers;
 using MatBlazor;
 using Blazored.SessionStorage;
 using Blazored.LocalStorage;
+using AKSoftware.Localization.MultiLanguages;
+using System.Reflection;
+using System.Globalization;
+using Blazored.Modal;
 
 namespace EdenClinic.WebUI
 {
@@ -40,6 +44,8 @@ namespace EdenClinic.WebUI
             });
             builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddBlazoredModal();
+            //builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), folderName: "Resources");
             await builder.Build().RunAsync();
         }
     }

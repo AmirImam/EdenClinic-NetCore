@@ -1,20 +1,33 @@
 ﻿@page "/centers/create"
-
+@page "/centers/details/{Id:guid}"
+@inherits Component
 <div class="row">
-    <div class="col-3">
-        <EditForm>
+    <div class="col-4">
+        <EditForm Model="Model" OnValidSubmit="Submit">
             <div class="form-group">
-                <MatTextField TValue="string" Type="text" @bind-Value="Model.CenterName" />
+                <MatTextField TValue="string" Required="true" Icon="@MatIconNames.Person" Type="text" Label="CenterName" @bind-Value="Model.CenterName" />
             </div>
 
             <div class="form-group">
-                <MatTextField TValue="string" Type="text" @bind-Value="Model.CenterPhone" />
+                <MatTextField TValue="string"  Required="true"  Icon="@MatIconNames.Phone" Type="text" Label="CenterPhone" @bind-Value="Model.CenterPhone" />
             </div>
 
             <div class="form-group">
-                <MatTextField TValue="string" Type="text" @bind-Value="Model.CenterAddress" />
+                <MatTextField TValue="string" Icon="@MatIconNames.Location_city" Type="text" Label="CenterAddress" @bind-Value="Model.CenterAddress" />
+            </div>
+
+            <div class="form-group">
+                <MatButton Type="submit" Label="Save" Class="btn btn-success" />
+                @if (Id != null)
+                {
+                <MatButton OnClick="DeleteItem" Type="button" Label="Delete" Class="btn btn-danger" />
+                }
+                
+                <MatAnchorLink class="btn btn-secondary" href="/centers">
+                    Back
+                </MatAnchorLink>
             </div>
         </EditForm>
-        
+
     </div>
 </div>

@@ -6,7 +6,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\blazoredModal\**" />
+    <Content Remove="wwwroot\blazoredModal\**" />
+    <EmbeddedResource Remove="wwwroot\blazoredModal\**" />
+    <None Remove="wwwroot\blazoredModal\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\ar-EG.yml" />
+    <None Remove="Resources\en-US.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ar-EG.yml" />
+    <EmbeddedResource Include="Resources\en-US.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AKSoftware.Localization.MultiLanguages" Version="3.0.1" />
     <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
+    <PackageReference Include="Blazored.Modal" Version="5.0.3" />
     <PackageReference Include="Blazored.SessionStorage" Version="1.0.12" />
     <PackageReference Include="MatBlazor" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
@@ -28,6 +47,11 @@
     <Reference Include="StringEncryption.NetStandard">
       <HintPath>..\..\StringEncryption\StringEncryption.NetStandard\bin\Debug\netstandard2.0\StringEncryption.NetStandard.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ar-EG.yml" />
+    <Resource Include="Resources\en-US.yml" />
   </ItemGroup>
 
 </Project>
