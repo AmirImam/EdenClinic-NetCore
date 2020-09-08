@@ -2,15 +2,17 @@
 @inherits Component
     <div class="container">
         <div class="row">
+            <div class="col-9"></div>
             <div class="col-3">
                 <MatFAB Icon="@MatIconNames.Add" Label="Create New" @onclick="@(()=> { UriHelper.NavigateTo("/centers/create"); })"></MatFAB>
             </div>
-            <div class="col-9"></div>
+
             <div class="col-12">
                 <MatTable Items="DataList" Class="table table-hover">
                     <MatTableHeader>
-                        <th>Center Name</th>
-                        <th></th>
+                        <th style="width:200px;">Center Name</th>
+                        <th>Edit</th>
+
                     </MatTableHeader>
 
                     <MatTableRow>
@@ -24,6 +26,7 @@
                             }
 
                         </td>
+                        <td></td>
                     </MatTableRow>
                 </MatTable>
             </div>

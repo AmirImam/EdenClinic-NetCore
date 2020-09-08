@@ -8,4 +8,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="StringEncryption.NetStandard">
+      <HintPath>..\..\StringEncryption\StringEncryption.NetStandard\bin\Debug\netstandard2.0\StringEncryption.NetStandard.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

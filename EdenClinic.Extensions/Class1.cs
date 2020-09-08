@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StringEncryption;
+using System;
 
 namespace EdenClinic.Extensions
 {
@@ -12,5 +13,6 @@ namespace EdenClinic.Extensions
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
         }
+
     }
 }
