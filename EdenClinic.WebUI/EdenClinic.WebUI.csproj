@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="StringEncryption.NetStandard">
       <HintPath>..\..\StringEncryption\StringEncryption.NetStandard\bin\Debug\netstandard2.0\StringEncryption.NetStandard.dll</HintPath>
     </Reference>

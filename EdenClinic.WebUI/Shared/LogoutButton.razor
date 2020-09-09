@@ -1,0 +1,18 @@
+﻿@inherits Component
+<MatIconButton Style="font-weight:bolder;" Icon="@MatIconNames.Lock" OnClick="@((e) => Logout())"></MatIconButton>
+
+@code {
+
+    async void Logout()
+    {
+        var msg = await Alert("Logout", "AreYouSure", AlertButtons.OkCancel);
+        if (msg == true)
+        {
+            Session.Me = null;
+            await SessionStorage.RemoveItemAsync("sesref");
+            await LocalStorage.RemoveItemAsync("locref");
+            UriHelper.NavigateTo("/", true);
+        }
+    }
+
+}

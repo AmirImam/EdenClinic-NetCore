@@ -1,11 +1,16 @@
 ﻿@inherits LayoutComponentBase
 @inject SessionManager Session;
 @inject SharedTools Tools;
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage;
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage;
+@inject NavigationManager UriHelper;
 @if (rendered == false)
 {
 
-    <img src="https://nextupspeakers.com/wp-content/uploads/sites/7244/2018/06/Medical-Technology.gif"
-         style="width:100%;height:100%;position:fixed;top:0px;left:0px" />
+    <div style="width:100%;height:100%;position:fixed;top:0px;left:0px;text-align:center;">
+        <img src="assets/LoadingBg.gif" />
+    </div>
+
 }
 else
 {
@@ -16,14 +21,16 @@ else
     else
     {
 
-        
+
         <MatDrawerContainer Style="width: 100vw; height: 100vh;">
             <MatDrawer @bind-Opened="@Opened">
                 <!--<div class="user-profile" style=" padding-left: 15px; padding-top: 15px;height: 160px; background: url(https://wrappixel.com/demos/angular-admin-templates/material-angular-lite/angular/assets/images/background/user-info.jpg) no-repeat;">
                     <div class="profile-img">
                         <PersonImage Style="width:80px;" PersonID="Session.Me.PersonID" />
                     </div>
-                    <div class="profile-text"><a aria-haspopup="true" class="mat-menu-trigger" style="font-weight:bolder;"> @Session.Me.PersonName <i class="ti-angle-down font-12 m-l-5"></i></a>--><!----><!--</div>
+                    <div class="profile-text"><a aria-haspopup="true" class="mat-menu-trigger" style="font-weight:bolder;"> @Session.Me.PersonName <i class="ti-angle-down font-12 m-l-5"></i></a>-->
+                <!---->
+                <!--</div>
                 </div>-->
                 <Sidebar />
 
@@ -34,6 +41,7 @@ else
                         <MatAppBarRow Style="color: #73879c; float: left; background-color: #EDEDED !important; border-bottom: 1px solid #D9DEE4; width: 100%; position: relative;">
                             <MatAppBarSection Style="background-color: #EDEDED !important;">
                                 <MatIconButton Style="font-weight:bolder;" Icon="@MatIconNames.Menu" OnClick="@((e) => ButtonClicked())"></MatIconButton>
+                                <LogoutButton />
                             </MatAppBarSection>
                             <MatAppBarSection Align="@MatAppBarSectionAlign.Start">
                                 <MatButton Icon="@MatIconNames.Notifications" OnClick="@(()=> this.Menu2.OpenAsync(Button2.Ref))" @ref="Button2"></MatButton>

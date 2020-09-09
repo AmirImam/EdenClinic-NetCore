@@ -11,25 +11,25 @@
         <tbody>
             <tr>
                 <td>@admin.PersonName</td>
-                <td></td>
+
+                <td>
+
+                    @switch (admin.PersonState)
+                    {
+
+                        case UserStates.Pending:
+                        case UserStates.Blocked:
+                            <MatChip @onclick="@(()=> { SwitchPersonState(admin.PersonID, UserStates.Active); })" TrailingIcon="@MatIconNames.Check" Class="badge-success" Label="Activate" />
+                            break;
+
+                        case UserStates.Active:
+                            <MatChip @onclick="@(()=> { SwitchPersonState(admin.PersonID, UserStates.Blocked); })" TrailingIcon="@MatIconNames.Block" Class="badge-danger" Label="Block" />
+                            break;
+                        default:
+                            break;
+                    }
+                </td>
             </tr>
         </tbody>
     </table>
-}
-@code {
-    [Parameter]
-    public Guid CenterID { get; set; }
-    List<Person> AdminsList = new List<Person>();
-    protected override async void OnAfterRender(bool firstRender)
-    {
-        if (firstRender == true)
-        {
-            AdminsList = (await ClientService
-                .Persons
-                .Include(it=> it.Role)
-                .Where(it => it.CenterID == CenterID && it.Role.IsAdmin == true)
-                .ResultAsync()).ToList();
-            StateHasChanged();
-        }
-    }
 }

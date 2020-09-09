@@ -82,8 +82,13 @@
         <PersonImage PersonID="Session.Me.PersonID" Class="img-circle profile_img" />
     </div>
     <div class="profile_info">
+
+        @if (Session.Me.Center != null)
+        {
+            <h6 style="color:white;">@Session.Me.Center.CenterName</h6>
+        }
         <span>Welcome,</span>
-        <h2>John Doe</h2>
+        <h2>@Session.Me.PersonName</h2>
     </div>
 </div>
 

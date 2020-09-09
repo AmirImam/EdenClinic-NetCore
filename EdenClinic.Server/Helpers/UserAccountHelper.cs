@@ -63,6 +63,7 @@ namespace EdenClinic.Server.Helpers
             var token = GenerateToken(identityUser);
             var item = context.Persons
                 .Include(it=> it.Role)
+                .Include(it=> it.Center)
                 .FirstOrDefault(it => it.ApplicationUserID == identityUser.Id);
             item.AccessToken = token.ToString();
             return (User: item, Message: "Ok");
