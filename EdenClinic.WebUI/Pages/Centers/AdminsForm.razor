@@ -1,0 +1,47 @@
+﻿@page "/centers/admins/create/{CenterID:guid}"
+@inherits Component
+
+<div class="row">
+    <div class="col-9">
+        <MatH3>@center.CenterName</MatH3>
+    </div>
+    <div class="col-4">
+        <EditForm Model="Model" OnValidSubmit="Submit">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <MatTextField TValue="string" Label="Name" Type="text" @bind-Value="Model.PersonName" Icon="@MatIconNames.Person" />
+            </div>
+
+            <div class="form-group">
+                <MatDatePicker TValue="DateTime" Label="Birthdate" @bind-Value="Model.BirthDate" />
+            </div>
+
+            <div class="form-group">
+                <MatTextField TValue="string" Label="Email" Type="text" @bind-Value="Model.Email" Icon="@MatIconNames.Email" />
+            </div>
+
+            <div class="form-group">
+                <MatTextField TValue="string" Label="Phone" Type="text" @bind-Value="Model.PhoneNumber" Icon="@MatIconNames.Phone" />
+            </div>
+
+            <div class="form-group">
+
+                <MatSelect Label="Gander" Icon="@(Model.Gander== Ganders.Female?MatIconNames.Record_voice_over:MatIconNames.Person)" @bind-Value="GanderBind">
+                    <MatOption Value="0">Male</MatOption>
+                    <MatOption Value="1">Female</MatOption>
+                </MatSelect>
+            </div>
+
+
+            <div class="form-group">
+                <MatButton Type="submit" Label="Save" Class="btn btn-success" />
+
+
+                <MatAnchorLink class="btn btn-secondary" href="/centers/admins">
+                    Back
+                </MatAnchorLink>
+            </div>
+        </EditForm>
+    </div>
+</div>

@@ -13,8 +13,14 @@ namespace EdenClinic.WebUI.Pages.Centers
         {
             if(firstRender == true)
             {
+                if(Session.Me.Role.IsSystemAdmin == false)
+                {
+                    UriHelper.NavigateTo("/");
+                }
+                Busy(true);
                 DataList = (await ClientService.Centers.ResultAsync()).ToList();
                 StateHasChanged();
+                Busy(false);
             }
         }
     }

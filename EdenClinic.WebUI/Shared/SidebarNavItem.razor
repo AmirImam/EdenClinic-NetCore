@@ -1,0 +1,7 @@
+﻿<MatNavItem Href="@Url"><MatIcon Icon="@Icon"></MatIcon><Space /> @Title </MatNavItem>
+
+@code {
+    [Parameter] public string Url { get; set; }
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public string Title { get; set; }
+}

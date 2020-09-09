@@ -15,11 +15,21 @@ namespace EdenClinic.WebUI.Pages.Centers
         private Center Model = new Center();
         protected override async void OnAfterRender(bool firstRender)
         {
-            if (Id != null)
+
+            if (firstRender == true)
             {
-                Model = await ClientService.Centers
-                    .FirstAsync(it => it.CenterID == Id);
-                StateHasChanged();
+                if (Session.Me.Role.IsSystemAdmin == false)
+                {
+                    UriHelper.NavigateTo("/");
+                }
+                if (Id != null)
+                {
+                    Busy(true);
+                    Model = await ClientService.Centers
+                        .FirstAsync(it => it.CenterID == Id);
+                    StateHasChanged();
+                    Busy(false);
+                }
             }
         }
         private async void Submit()
@@ -47,7 +57,22 @@ namespace EdenClinic.WebUI.Pages.Centers
 
         private async void DeleteItem()
         {
-            var result = await Alert("AreYouSure", "DeleteItem", AlertButtons.OkCancel);
+            var msg = await Alert("DeleteItem", "AreYouSure", AlertButtons.OkCancel);
+            if(msg == true)
+            {
+                Busy(true);
+                var result = await ClientService.Centers.DeleteEntityAsync(Id.Value);
+                Busy(false);
+
+                if(result.Success == true)
+                {
+                    UriHelper.NavigateTo("/centers");
+                }
+                else
+                {
+                    Toast.Add(result.Message, MatBlazor.MatToastType.Danger);
+                }
+            }
         }
     }
 }

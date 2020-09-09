@@ -1,0 +1,35 @@
+﻿@inherits Component
+@foreach (Person admin in AdminsList)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@admin.PersonName</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+}
+@code {
+    [Parameter]
+    public Guid CenterID { get; set; }
+    List<Person> AdminsList = new List<Person>();
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender == true)
+        {
+            AdminsList = (await ClientService
+                .Persons
+                .Include(it=> it.Role)
+                .Where(it => it.CenterID == CenterID && it.Role.IsAdmin == true)
+                .ResultAsync()).ToList();
+            StateHasChanged();
+        }
+    }
+}

@@ -12,6 +12,7 @@
         height: 57px;
         padding: 0px;
     }
+
     .site_title {
         text-overflow: ellipsis;
         overflow: hidden;
@@ -26,6 +27,7 @@
         margin: 0;
         padding-left: 10px;
     }
+
     .profile {
         background-color: #2A3F54;
     }
@@ -34,22 +36,26 @@
         width: 35%;
         float: left;
     }
+
     .profile_info {
         padding: 25px 10px 10px;
         width: 65%;
         float: left;
     }
+
         .profile_info span {
             font-size: 13px;
             line-height: 30px;
             color: #BAB8B8;
         }
+
         .profile_info h2 {
             font-size: 14px;
             color: #ECF0F1;
             margin: 0;
             font-weight: 300;
         }
+
     .img-circle.profile_img {
         width: 70%;
         background: #fff;
@@ -66,8 +72,9 @@
 @*<link rel="stylesheet" href="https://colorlib.com/polygon/build/css/custom.min.css" />*@
 <div class="navbar nav_title" style="border: 0;">
     <a href="index.html" class="site_title">
-    <MatIcon Icon="@MatIconNames.Local_hospital"></MatIcon>    
-    <span>Gentelella Alela!</span></a>
+        <MatIcon Icon="@MatIconNames.Local_hospital"></MatIcon>
+        <span>Gentelella Alela!</span>
+    </a>
 </div>
 <div class="clearfix"></div>
 <div class="profile clearfix">
@@ -82,17 +89,14 @@
 
 <MatNavMenu Style="background-color: #2A3F54;height:100%;">
     <MatNavItem Href="/" Style="margin-top:0px;"><MatIcon Icon="@MatIconNames.Home"></MatIcon> <Space Count="1" /> Home</MatNavItem>
-    
+
     @if (Session.Me.Role.IsSystemAdmin == true)
     {
         <SubNavMenu Title="Administration" Icon="account_box">
-            <MatNavItem Href="/centers"><MatIcon Icon="backup"></MatIcon>&nbsp; Centers </MatNavItem>
-            <MatNavItem><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A</MatNavItem>
-            <MatNavItem><MatIcon Icon="backup"></MatIcon>&nbsp; Item 3.A</MatNavItem>
+            <SidebarNavItem Url="/centers" Icon="@MatIconNames.Domain" Title="Centers" />
+            <SidebarNavItem Url="/centers/admins" Icon="@MatIconNames.Verified_user" Title="CentersAdmins" />
         </SubNavMenu>
     }
-
-    
 </MatNavMenu>
 
 

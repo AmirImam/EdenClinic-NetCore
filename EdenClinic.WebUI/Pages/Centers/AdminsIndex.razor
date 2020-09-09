@@ -1,0 +1,30 @@
+﻿@page "/centers/admins"
+@inherits Component
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <MatAccordion Multi="true">
+               
+                @foreach (Center center in CentersList)
+                {
+
+                    <MatExpansionPanel>
+                        <MatExpansionPanelSummary>
+                            <MatExpansionPanelHeader>
+                                @center.CenterName
+                                <MatChip TrailingIcon="@MatIconNames.Add" Label="Create New" @onclick="@(()=> { UriHelper.NavigateTo($"/centers/admins/create/{center.CenterID}"); })"></MatChip>
+                            </MatExpansionPanelHeader>
+                        </MatExpansionPanelSummary>
+                        
+                        <MatExpansionPanelDetails>
+                            <CenterAdminsTemplate CenterID="center.CenterID" />
+                        </MatExpansionPanelDetails>
+                    </MatExpansionPanel>
+                }
+
+            </MatAccordion>
+
+        </div>
+    </div>
+</div>
