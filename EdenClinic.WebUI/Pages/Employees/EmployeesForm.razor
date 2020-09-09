@@ -1,0 +1,26 @@
+﻿@page "/employees/create"
+@page "/employees/details/{Id:guid}"
+@inherits Component
+
+<div class="row">
+    <div class="col-12">
+        <EditForm Model="Model" OnValidSubmit="Submit">
+            <DataAnnotationsValidator />
+            <div class="row">
+                <div class="form-group col-6">
+                    <MatTextField TValue="string" Type="text" @bind-Value="Model.PersonName" Label="Name" />
+                </div>
+
+                <div class="form-group col-6">
+                    <MatTextField TValue="string" Type="email" @bind-Value="Model.Email" Label="Email" />
+                </div>
+                <div class="form-group col-6">
+                    <MatTextField TValue="string" Type="tel" @bind-Value="Model.PhoneNumber" Label="Phone" />
+                </div>
+                <div class="form-group col-6">
+                    <MatTextField TValue="string" Type="text" @bind-Value="Model.PersonAddress" Label="Address" />
+                </div>
+            </div>
+        </EditForm>
+    </div>
+</div>

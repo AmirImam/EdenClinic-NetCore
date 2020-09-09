@@ -1,75 +1,6 @@
 ﻿@inherits Component
-<style>
-    .mdc-nav-item, .mdc-sub-menu-icon {
-        color: #F2F5F7 !important;
-    }
+<link href="/css/sidebar.css" rel="stylesheet" />
 
-    .nav_title {
-        width: 100%;
-        float: left;
-        background: #2A3F54;
-        border-radius: 0;
-        height: 57px;
-        padding: 0px;
-    }
-
-    .site_title {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        font-weight: 400;
-        font-size: 22px;
-        width: 100%;
-        color: #ECF0F1 !important;
-        margin-left: 0 !important;
-        line-height: 59px;
-        display: block;
-        height: 55px;
-        margin: 0;
-        padding-left: 10px;
-    }
-
-    .profile {
-        background-color: #2A3F54;
-    }
-
-    .profile_pic {
-        width: 35%;
-        float: left;
-    }
-
-    .profile_info {
-        padding: 25px 10px 10px;
-        width: 65%;
-        float: left;
-    }
-
-        .profile_info span {
-            font-size: 13px;
-            line-height: 30px;
-            color: #BAB8B8;
-        }
-
-        .profile_info h2 {
-            font-size: 14px;
-            color: #ECF0F1;
-            margin: 0;
-            font-weight: 300;
-        }
-
-    .img-circle.profile_img {
-        width: 70%;
-        background: #fff;
-        margin-left: 15%;
-        z-index: 1000;
-        position: inherit;
-        margin-top: 20px;
-        border: 1px solid rgba(52,73,94,0.44);
-        padding: 4px;
-        border-radius: 50%;
-        vertical-align: middle;
-    }
-</style>
-@*<link rel="stylesheet" href="https://colorlib.com/polygon/build/css/custom.min.css" />*@
 <div class="navbar nav_title" style="border: 0;">
     <a href="index.html" class="site_title">
         <MatIcon Icon="@MatIconNames.Local_hospital"></MatIcon>
@@ -100,6 +31,13 @@
         <SubNavMenu Title="Administration" Icon="account_box">
             <SidebarNavItem Url="/centers" Icon="@MatIconNames.Domain" Title="Centers" />
             <SidebarNavItem Url="/centers/admins" Icon="@MatIconNames.Verified_user" Title="CentersAdmins" />
+        </SubNavMenu>
+    }
+
+    @if (Session.Me.Role.IsAdmin == true)
+    {
+        <SubNavMenu Title="Administration" Icon="@MatIconNames.People">
+            <SidebarNavItem Url="/employees" Icon="@MatIconNames.Domain" Title="Employees" />
         </SubNavMenu>
     }
 </MatNavMenu>

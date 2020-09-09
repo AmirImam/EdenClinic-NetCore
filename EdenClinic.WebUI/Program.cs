@@ -45,7 +45,7 @@ namespace EdenClinic.WebUI
             builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredModal();
-            //builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), folderName: "Resources");
+            builder.Services.AddLanguageContainer(Assembly.GetExecutingAssembly(), folderName: "Resources");
             await builder.Build().RunAsync();
         }
     }

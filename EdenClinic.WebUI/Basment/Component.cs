@@ -33,8 +33,8 @@ namespace EdenClinic.WebUI.Basment
         public NavigationManager UriHelper { get; set; }
         [Inject]
         public IModalService Popup { get; set; }
-        //[Inject]
-        //public ILanguageContainerService Localizer { get; set; }
+        [Inject]
+        public ILanguageContainerService Localizer { get; set; }
         protected void Busy(bool state)
         {
             Session.IsBusy = state;

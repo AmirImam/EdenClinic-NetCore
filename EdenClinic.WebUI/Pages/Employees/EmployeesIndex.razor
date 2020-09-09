@@ -1,0 +1,39 @@
+﻿@page "/employees"
+@inherits Component
+
+<div class="container">
+    <div class="row">
+        <div class="col-9"></div>
+        <div class="col-3">
+            <MatFAB Icon="@MatIconNames.Add" Label="Create New" @onclick="@(()=> { UriHelper.NavigateTo("/employees/create"); })"></MatFAB>
+        </div>
+
+        <div class="col-12">
+            @*<table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Center center in DataList)
+                    {
+                        <tr>
+                            <td>@center.CenterName</td>
+                            <td>
+                                @if (Session.Me.CenterID != center.CenterID)
+                                {
+                                    <MatAnchorLink href="@($"/centers/details/{center.CenterID}")">
+                                        <MatIcon Icon="@MatIconNames.More_horiz" Class="text-primary" />
+                                    </MatAnchorLink>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>*@
+        </div>
+    </div>
+</div>
